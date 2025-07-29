@@ -1,27 +1,5 @@
-# Program to add animal data to a HTML template with the correct place holder
-# Modified to fetch data from API based on user input with error handling
-import requests
-import json
-
-def get_data_from_api(animal_name):
-    """Fetches animal data from API-Ninjas Animals API"""
-    base_url = "https://api.api-ninjas.com/v1/animals"
-    api_key = "YEiSpPfWxYSunop1KCSRuQ==dEWrGUmi4uMKU5Jr"
-    
-    params = {'name': animal_name}
-    headers = {'X-Api-Key': api_key}
-    
-    try:
-        response = requests.get(base_url, headers=headers, params=params)
-        if response.status_code == 200:
-            data = response.json()
-            return data
-        else:
-            print(f"API Error: {response.status_code} - {response.text}")
-            return None
-    except requests.exceptions.RequestException as e:
-        print(f"Request failed: {e}")
-        return None
+# Website Generator - Generates HTML website from animal data
+import data_fetcher
 
 def load_html(filepath_to_html):
     """Loads HTML to put in the string"""
@@ -96,23 +74,23 @@ def get_user_input_for_animal():
 
 def main():
     filepath_to_html = "animals_template.html"
-    filepath_to_html = "/home/coder/zootopia_api/My-Zootopia_API/animals_template.html" # this is only here for me - i need absolute paths in my ide
+    filepath_to_html = "/home/coder/zootopia_api/My-Zootopia_API/animals_template.html"  # this is only here for me - i need absolute paths in my ide
 
     try:
         animal_name = get_user_input_for_animal()
-        data = get_data_from_api(animal_name)
+        data = data_fetcher.fetch_data(animal_name) # Fetch data using the data_fetcher module
         html = load_html(filepath_to_html)
         
-        if data and len(data) > 0: # if data for animal input is found found
+        if data and len(data) > 0:  # if data for animal input is found
             details = get_details(data)
             
-            if details: # if details are parsed
+            if details:  # if details are parsed
                 formatted_details = format_animal_details(details)
                 write_new_html(html, formatted_details)
-            else: # if data somehow is not parsed correctly
+            else:  # if data somehow is not parsed correctly
                 error_content = create_error_message(animal_name)
                 write_new_html(html, error_content)
-        else: # if no animal matches found
+        else:  # if no animal matches found
             error_content = create_error_message(animal_name)
             write_new_html(html, error_content)
 
