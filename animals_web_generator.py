@@ -10,7 +10,7 @@ def write_new_html(html, content):
     """Takes read html document and content to replace the placeholder in html"""
     final_html = html.replace("__REPLACE_ANIMALS_INFO__", content)
     output_path = "animals.html"
-    output_path = "/home/coder/zootopia_api/My-Zootopia_API/animals.html"  # this is only here for me - i need absolute paths in my ide
+    #output_path = "/home/coder/zootopia_api/My-Zootopia_API/animals.html"  # this is only here for me - i need absolute paths in my ide
     with open(output_path, "w") as output_file:
         output_file.write(final_html)
     print("Website was successfully generated to the file animals.html.")
@@ -74,7 +74,7 @@ def get_user_input_for_animal():
 
 def main():
     filepath_to_html = "animals_template.html"
-    filepath_to_html = "/home/coder/zootopia_api/My-Zootopia_API/animals_template.html"  # this is only here for me - i need absolute paths in my ide
+    #filepath_to_html = "/home/coder/zootopia_api/My-Zootopia_API/animals_template.html"  # this is only here for me - i need absolute paths in my ide
 
     try:
         animal_name = get_user_input_for_animal()
