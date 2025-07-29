@@ -1,4 +1,8 @@
 import requests
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 def fetch_data(animal_name):
     """
@@ -17,14 +21,14 @@ def fetch_data(animal_name):
         }
     }
     """
-    base_url = "https://api.api-ninjas.com/v1/animals"
-    api_key = "YEiSpPfWxYSunop1KCSRuQ==dEWrGUmi4uMKU5Jr"
+    BASE_URL = "https://api.api-ninjas.com/v1/animals"
+    API_KEY = os.getenv("API_KEY")
     
-    params = {'name': animal_name}
-    headers = {'X-Api-Key': api_key}
+    PARAMS = {'name': animal_name}
+    HEADERS = {'X-Api-Key': API_KEY}
     
     try:
-        response = requests.get(base_url, headers=headers, params=params)
+        response = requests.get(BASE_URL, headers=HEADERS, params=PARAMS)
         if response.status_code == 200:
             data = response.json()
             return data
